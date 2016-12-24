@@ -1,0 +1,4 @@
+name : stone_floor
+type : floor
+movement_cost : 1
+modifiers : []

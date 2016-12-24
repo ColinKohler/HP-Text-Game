@@ -1,0 +1,4 @@
+name : stone_wall
+type : wall
+movement_cost : -1
+modifiers: []
