@@ -1,0 +1,44 @@
+===============================================================================
+                   HARRY POTTER TEXT-BASED ADVENTURE GAME
+===============================================================================
+
+Gameplay:
+    - Cast spells by typing out spell name
+        + *Spell Name* <Target Name(s)>
+        + Can target objects and people
+    - Interact by typing
+    - Dodge % chance
+    - Item powerlevel?
+    - Light/Dark spells afffect your alignment
+    - Gain spellbooks to learn new spells
+    - PvP dueling
+    - Free roaming with monster enocunters based of % chance
+
+Level Design:
+    - Procedualy generate rooms to explore
+    - 
+
+Objects:
+    - Room
+        + Size
+        + Shape
+        + Grid
+        + Objects
+        + Entities
+    - Spell
+        + HP Dmg
+        + MP Cost
+        + Effect
+    - Character
+        + HP/MP
+        + Alignment
+        + Invetory
+        + Buff/Debuffs
+        + Spells
+    - NPC
+        + HP/MP
+        + Buffs/Debuffs
+        + Spells
+    - Object
+        + Static/Dynamic
+        + HP
