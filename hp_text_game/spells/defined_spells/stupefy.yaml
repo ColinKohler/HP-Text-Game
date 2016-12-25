@@ -1,0 +1,7 @@
+name : stupefy
+type : charm
+mp_cost : 10
+hp_dmg : 0
+status_effects :
+    - effect_name : stun
+      duration : 3
