@@ -69,7 +69,6 @@ class Room:
                     row_string.append('#')
                 else:
                     row_string.append('.')
-            row_string.append('\n')
             room_string.append(row_string)
 
         for x, y, entity in self._entities.values():
