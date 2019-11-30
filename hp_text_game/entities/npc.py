@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from entity import Entity
+from .entity import Entity
 
 class NPC(Entity):
 

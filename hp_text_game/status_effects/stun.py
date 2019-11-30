@@ -4,7 +4,7 @@ class Stun:
         self._duration = duration
 
     def __repr__(self):
-        print 'stun'
+        print('stun')
 
     def tick(self):
         self._duration -= 1
