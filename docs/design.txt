@@ -2,6 +2,10 @@
                    HARRY POTTER TEXT-BASED ADVENTURE GAME
 ===============================================================================
 
+TODO:
+  - Figure out how to handle additonal mechanics via text input
+  - Implement and test spell casting
+
 Gameplay:
     - Cast spells by typing out spell name
         + *Spell Name* <Target Name(s)>
@@ -16,7 +20,7 @@ Gameplay:
 
 Level Design:
     - Procedualy generate rooms to explore
-    - 
+    -
 
 Objects:
     - Room
