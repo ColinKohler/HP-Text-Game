@@ -9,6 +9,8 @@ class CmdParser(object):
   def parseCmd(self, cmd):
     if cmd in self.move_commands:
       self.player.moveCmd(cmd)
+    elif cmd == 't':
+      self.player.targetCmd()
     elif cmd == 'c':
       split_input = cmd_input.split()
       spell, spell_args = split_input[1], split_input[2:]

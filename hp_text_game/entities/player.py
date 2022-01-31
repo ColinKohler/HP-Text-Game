@@ -2,10 +2,28 @@ from .entity import Entity
 
 class Player(Entity):
 
-    def __init__(self, e_id, name, hp, mp, faction, room=None, pos=None):
-        Entity.__init__(self, e_id, name, '@', hp, mp, faction, room=room, pos=pos)
+    def __init__(self, name, hp, mp, faction):
+      Entity.__init__(self, name, '@', faction)
+
+      #-----------------#
+      # Long-term state #
+      #-----------------#
+      self.hp = hp
+      self.hp_max = hp
+      self.mp = mp
+      self.mp_max = mp
+
+      self.level = 1;
+      self.gold = 0;
+
+      self.stats = dict()
+      self.equipment = dict()
+      self.spells = list()
 
     def getPlayerCardStrings(self):
-        return [self._name, self._faction,
-                "Health: {}/{}".format(self._current_hp, self._max_hp),
-                "Magic:  {}/{}".format(self._current_mp, self._max_mp)]
+      return [
+        self.name,
+        self.faction,
+        "Health: {}/{}".format(self.hp, self.hp_max),
+        "Magic:  {}/{}".format(self.mp, self.mp_max)
+      ]
