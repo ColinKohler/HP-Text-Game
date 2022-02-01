@@ -13,10 +13,10 @@ def worldLoop(window):
     level.generateLevel()
 
     player = Player('TerminusSTC', 100, 100, 'Slytherin')
-    player.setPosition([12, 9])
+    level.addEntityToRoom(player, 'great_hall', [12, 9])
 
     h_student = NPC('student')
-    h_student.setPosition([12,12])
+    level.addEntityToRoom(h_student, 'great_hall', [12, 12])
 
     screen = ui.setupCurses()
     cmd_parser = CmdParser(player)

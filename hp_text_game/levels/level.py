@@ -1,19 +1,15 @@
 import os, sys
 import yaml
-import curses, curses.textpad
 
 from .room import Room
 from .cell import Cell
-import ui
 
 class Level(object):
   def __init__(self, ):
-    self.rooms = list()
+    self.rooms = dict()
 
   def generateLevel(self):
-    great_hall = self.loadRoom('great_hall')
-
-    self.rooms.append(great_hall)
+    self.rooms['great_hall'] = self.loadRoom('great_hall')
 
   def loadRoom(self, room_name):
     # Setup path to yaml room descriptors
@@ -37,16 +33,18 @@ class Level(object):
           if 'wall' in cell_doc['type']:
             walls.append((i, j))
 
-    return Room(room_doc['name'], room_doc['x_size'], room_doc['y_size'], cells=cells, walls=walls)
+    return Room(room_doc['name'],
+                int(room_doc['x_size']),
+                int(room_doc['y_size']),
+                cells=cells,
+                walls=walls)
+
+  def addEntityToRoom(self, entity, room, position):
+    entity.setPosition(position)
+    self.rooms[room].addEntity(entity)
 
   def render(self):
-    for room in self.rooms:
-      map_h, map_w = room._y_size + 4, room._x_size + 4
-      map_y, map_x = 0, 0
-      room_strs = room.getRows()
-      str_colors = [curses.color_pair(2)] * len(room_strs)
-      map_window = ui.genTextWindow(map_h, map_w, map_y, map_x,
-                                    room_strs, str_colors,
-                                    y_pad=2, x_pad=2, box=True)
+    for room in self.rooms.values():
+      map_y, map_x, map_h, map_w, map_window = room.render()
 
-      return map_y, map_x, map_h, map_w, map_window
+    return map_y, map_x, map_h, map_w, map_window
