@@ -1,7 +1,7 @@
 import time
 import curses, curses.textpad
 
-import ui
+from ui.ui import UI
 from levels.level import Level
 from entities.player import Player
 from entities.npc import NPC
@@ -18,21 +18,13 @@ def worldLoop(window):
     h_student = NPC('student')
     level.addEntityToRoom(h_student, 'great_hall', [12, 12])
 
-    screen = ui.setupCurses()
-    cmd_parser = CmdParser(player)
+    ui = UI(window, player, level)
+    cmd_parser = CmdParser(ui, player)
     log_strs = list()
     while True:
-      input_box = ui.renderMainView(window, level, player, log_strs, get_text_input=True)
-      cmd = screen.getch()
+      ui.render(log_strs)
+      cmd = ui.getCommand()
       cmd_parser.parseCmd(cmd)
-
-      #cmd_input = input_box.edit()
-
-      #split_input = cmd_input.split()
-      #spell, spell_args = split_input[0], split_input[1:]
-      #player.castSpell(spell, spell_args=spell_args)
-
-      #log_strs.append(chr(cmd))
 
 if __name__ == '__main__':
   curses.wrapper(worldLoop)

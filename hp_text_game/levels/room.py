@@ -1,5 +1,5 @@
 import curses, curses.textpad
-import ui
+from ui import curses_utils
 
 class Room(object):
   def __init__(self, name, x_size, y_size, cells=None, walls=None):
@@ -26,7 +26,7 @@ class Room(object):
   def removeEntity(self, entity):
     del self.entities[entity.name]
 
-  def checkCollision(self, pos, ignore_id=None):
+  def inCollision(self, pos, ignore_id=None):
     for wall in self.walls:
       if (pos[0] == wall[0]) and (pos[1] == wall[1]):
         return True
@@ -46,9 +46,9 @@ class Room(object):
 
     room_strs = self.getRows()
     str_colors = [curses.color_pair(2)] * len(room_strs)
-    map_window = ui.genTextWindow(map_h, map_w, map_y, map_x,
-                                  room_strs, str_colors,
-                                  y_pad=2, x_pad=2, box=True)
+    map_window = curses_utils.genTextWindow(map_h, map_w, map_y, map_x,
+                                            room_strs, str_colors,
+                                            y_pad=2, x_pad=2, box=True)
 
     return map_y, map_x, map_h, map_w, map_window
 

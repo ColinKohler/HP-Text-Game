@@ -40,7 +40,7 @@ class Level(object):
                 walls=walls)
 
   def addEntityToRoom(self, entity, room, position):
-    entity.setPosition(position)
+    entity.addToRoom(position, self.rooms[room])
     self.rooms[room].addEntity(entity)
 
   def render(self):
