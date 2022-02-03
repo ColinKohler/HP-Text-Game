@@ -40,11 +40,11 @@ class Room(object):
 
     return False
 
-  def render(self):
+  def render(self, target):
     map_h, map_w = self.y_size + 4, self.x_size + 4
     map_y, map_x = 0, 0
 
-    room_strs = self.getRows()
+    room_strs = self.getRows(target)
     str_colors = [curses.color_pair(2)] * len(room_strs)
     map_window = curses_utils.genTextWindow(map_h, map_w, map_y, map_x,
                                             room_strs, str_colors,
@@ -52,7 +52,7 @@ class Room(object):
 
     return map_y, map_x, map_h, map_w, map_window
 
-  def getRows(self):
+  def getRows(self, target):
     room_string = list()
     for row in self.cells:
       row_string = list()
@@ -65,10 +65,17 @@ class Room(object):
           row_string.append('.')
       room_string.append(row_string)
 
+    # Render entities
     for entity in self.entities.values():
       x, y = entity.pos
       room_string[y][x] = entity.marker
 
+    # Render target
+    if target:
+      x, y = target
+      room_string[y][x] = "*"
+
+    # Set room strings list
     room_strs = list()
     for row_string in room_string:
       room_strs.append(''.join(row_string))

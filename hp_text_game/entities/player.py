@@ -26,6 +26,9 @@ class Player(Entity):
     #------------------#
     self.target = None
 
+  def setTarget(self, target):
+    self.target = target
+
   # Render Junk
   def getPlayerCardStrings(self):
     return [

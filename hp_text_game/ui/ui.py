@@ -20,13 +20,14 @@ class UI(object):
     curses.init_pair(5, curses.COLOR_BLUE, curses.COLOR_BLACK)
 
     self.in_target_mode = False
+    self.target = None
 
   def getCommand(self):
     return self.screen.getch()
 
   # Render the main UI view
   def render(self, log_strs):
-    map_y, map_x, map_h, map_w, map_window = self.current_level.render()
+    map_y, map_x, map_h, map_w, map_window = self.current_level.render(self.target)
     map_window.refresh()
 
     # Add player card to window
@@ -47,3 +48,34 @@ class UI(object):
                                                           y_pad=1, x_pad=1, box=True)
 
     return cmd_window
+
+  def setTargetMode(self):
+    self.in_target_mode = True
+    self.target = self.player.pos
+
+  def setTarget(self, pos):
+    self.target = pos
+
+  def moveTargetLeft(self):
+    self.setTarget([self.target[0], self.target[1]-1])
+
+  def moveTargetLeftUpDiag(self):
+    self.setTarget([self.target[0]+1, self.target[1]-1])
+
+  def moveTargetUp(self):
+    self.setTarget([self.target[0]+1, self.target[1]])
+
+  def moveTargetRightUpDiag(self):
+    self.setTarget([self.target[0]+1, self.target[1]+1])
+
+  def moveTargetRight(self):
+    self.setTarget([self.target[0], self.target[1]+1])
+
+  def moveTargetRightDownDiag(self):
+    self.setTarget([self.target[0]-1, self.target[1]+1])
+
+  def moveTargetDown(self):
+    self.setTarget([self.target[0]-1, self.target[1]])
+
+  def moveTargetLeftDownDiag(self):
+    self.setTarget([self.target[0]-1, self.target[1]-1])

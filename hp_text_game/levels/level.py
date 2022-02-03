@@ -43,8 +43,8 @@ class Level(object):
     entity.addToRoom(position, self.rooms[room])
     self.rooms[room].addEntity(entity)
 
-  def render(self):
+  def render(self, target):
     for room in self.rooms.values():
-      map_y, map_x, map_h, map_w, map_window = room.render()
+      map_y, map_x, map_h, map_w, map_window = room.render(target)
 
     return map_y, map_x, map_h, map_w, map_window
