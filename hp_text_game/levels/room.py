@@ -40,6 +40,14 @@ class Room(object):
 
     return False
 
+  def getTarget(self, target_pos):
+    # TODO: Would be better to have a pos->entity map to check here.
+    for entity in self.entities.values():
+      if (entity.pos[0] == target_pos[0]) and (entity.pos[1] == target_pos[1]):
+        return entity
+
+    return None
+
   def render(self, target):
     map_h, map_w = self.y_size + 4, self.x_size + 4
     map_y, map_x = 0, 0

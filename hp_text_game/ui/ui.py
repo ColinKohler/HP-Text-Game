@@ -20,10 +20,14 @@ class UI(object):
     curses.init_pair(5, curses.COLOR_BLUE, curses.COLOR_BLACK)
 
     self.in_target_mode = False
+    self.in_cast_mode = False
     self.target = None
 
   def getCommand(self):
-    return self.screen.getch()
+    if self.in_cast_mode:
+      return self.input_box.edit()
+    else:
+      return self.screen.getch()
 
   # Render the main UI view
   def render(self, log_strs):
@@ -42,10 +46,10 @@ class UI(object):
     cmd_h, cmd_w = 11, self.max_width
     cmd_y, cmd_x = self.max_height - cmd_h, 0
     str_colors = [curses.color_pair(2)] * len(log_strs)
-    input_box, cmd_window = curses_utils.genCommandWindow(cmd_h, cmd_w,
-                                                          cmd_y, cmd_x,
-                                                          log_strs, str_colors,
-                                                          y_pad=1, x_pad=1, box=True)
+    self.input_box, cmd_window = curses_utils.genCommandWindow(cmd_h, cmd_w,
+                                                               cmd_y, cmd_x,
+                                                               log_strs, str_colors,
+                                                               y_pad=1, x_pad=1, box=True)
 
     return cmd_window
 
@@ -55,6 +59,9 @@ class UI(object):
 
   def setTarget(self, pos):
     self.target = pos
+
+  def setCastMode(self):
+    self.in_cast_mode = True
 
   def moveTargetLeft(self):
     self.setTarget([self.target[0], self.target[1]-1])

@@ -1,11 +1,13 @@
 import sys
 
 class CmdParser(object):
-  def __init__(self, ui, player):
+  def __init__(self, ui, player, level):
     self.ui = ui
     self.player = player
+    self.level = level
 
     self.in_target_mode = False
+    self.in_cast_mode = False
 
     self.mvmtCmds = [
       ord('h'),
@@ -21,17 +23,25 @@ class CmdParser(object):
   def parseCmd(self, cmd):
     if self.in_target_mode:
       self.parseTargetCmd(cmd)
-      return
+    elif self.in_cast_mode:
+      self.parseCastCmd(cmd)
+    else:
+      self.parseNormalCmd(cmd)
 
+  def parseNormalCmd(self, cmd):
     if cmd in self.mvmtCmds:
       self.parseMvmtCmd(cmd)
     elif cmd == ord('t'):
       self.in_target_mode = True
       self.ui.setTargetMode()
     elif cmd == ord('c'):
-      pass
+      self.in_cast_mode = True
+      self.ui.setCastMode()
     elif cmd == ord('q'):
       sys.exit()
+
+  def parseCastCmd(self, cmd):
+    pass
 
   def parseTargetCmd(self, cmd):
     if cmd == ord('h'):
@@ -51,7 +61,8 @@ class CmdParser(object):
     elif cmd == ord('b'):
       self.ui.moveTargetLeftDownDiag()
     elif cmd == ord('e'):
-      self.player.setTarget(self.ui.target)
+      target_entity = self.level.getTarget(self.ui.target)
+      self.player.setTarget(target_entity)
       self.in_target_mode = False
       self.ui.in_target_mode = False
       self.ui.target = None

@@ -10,6 +10,7 @@ class Level(object):
 
   def generateLevel(self):
     self.rooms['great_hall'] = self.loadRoom('great_hall')
+    self.current_room = 'great_hall'
 
   def loadRoom(self, room_name):
     # Setup path to yaml room descriptors
@@ -42,6 +43,9 @@ class Level(object):
   def addEntityToRoom(self, entity, room, position):
     entity.addToRoom(position, self.rooms[room])
     self.rooms[room].addEntity(entity)
+
+  def getTarget(self, target_pos):
+    return self.rooms[self.current_room].getTarget(target_pos)
 
   def render(self, target):
     for room in self.rooms.values():

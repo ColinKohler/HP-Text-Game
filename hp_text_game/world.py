@@ -19,12 +19,13 @@ def worldLoop(window):
     level.addEntityToRoom(h_student, 'great_hall', [12, 12])
 
     ui = UI(window, player, level)
-    cmd_parser = CmdParser(ui, player)
+    cmd_parser = CmdParser(ui, player, level)
     log_strs = list()
     while True:
       ui.render(log_strs)
       cmd = ui.getCommand()
       cmd_parser.parseCmd(cmd)
+      #log_strs.append(cmd)
 
 if __name__ == '__main__':
   curses.wrapper(worldLoop)
