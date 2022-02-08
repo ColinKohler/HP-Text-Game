@@ -3,8 +3,10 @@ import curses, curses.textpad
 from ui import curses_utils
 
 class Player(Entity):
-  def __init__(self, name, hp, mp, faction):
+  def __init__(self, name, hp, mp, faction, logger):
     Entity.__init__(self, name, '@', faction)
+
+    self.logger = logger
 
     #-----------------#
     # Long-term state #
@@ -28,6 +30,15 @@ class Player(Entity):
 
   def setTarget(self, target):
     self.target = target
+
+    if self.target:
+      self.logger.history.append('{} targets {}.'.format(self.name, self.target.name))
+
+  def cast(self, spell):
+    if not self.target:
+      return
+
+    self.logger.history.append('{} cast {} at {}.'.format(self.name, spell, self.target.name))
 
   # Render Junk
   def getPlayerCardStrings(self):

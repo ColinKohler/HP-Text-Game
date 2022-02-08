@@ -41,7 +41,9 @@ class CmdParser(object):
       sys.exit()
 
   def parseCastCmd(self, cmd):
-    pass
+    self.player.cast(cmd)
+    self.in_cast_mode = False
+    self.ui.in_cast_mode = False
 
   def parseTargetCmd(self, cmd):
     if cmd == ord('h'):
